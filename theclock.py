@@ -1,22 +1,28 @@
-# digital_clock.py
-
 import tkinter as tk
 import time
 
-def launch_clock():
-    def update_time():
-        current_time = time.strftime('%H:%M:%S')
-        clock_label.config(text=current_time)
-        root.after(1000, update_time)
+root = tk.Tk()
+root.title("Digital Clock")
+root.configure(bg="black")
 
-    root = tk.Tk()
-    root.title("Digital Clock")
-    root.configure(bg="black")
+# Small window
+root.geometry("240x80+650+20")   # width x height + x + y
+root.resizable(False, False)
 
-    clock_label = tk.Label(root, text="", font=("Helvetica", 44), fg="mediumpurple2", bg="black")
-    clock_label.pack(padx=20, pady=20)
+# Optional: always stay on top
+root.attributes("-topmost", True)
 
-    update_time()
-    root.mainloop()
+clock_label = tk.Label(
+    root,
+    font=("Helvetica", 36, "bold"),
+    fg="white",
+    bg="black"
+)
+clock_label.pack(expand=True, fill="both")
 
-# Run directly
+def update_time():
+    clock_label.config(text=time.strftime("%H:%M:%S"))
+    root.after(1000, update_time)
+
+update_time()
+root.mainloop()
